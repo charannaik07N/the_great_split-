@@ -1,6 +1,10 @@
 # The Great Split
 
-The Great Split is a Next.js 14 app that curates popular films into an editorial, cinematic discovery experience. It pulls live data from TMDB and presents a spotlight feature, a featured rail, and a curated grid, with a detailed dossier view per title.
+The Great Split is a Next.js 14 movie discovery experience that turns TMDB data into a cinematic, editorial-style layout. The home page highlights one spotlight title, a featured rail, and a curated grid, while each film has a detailed dossier page with runtime, genres, and key metadata.
+
+## Live Demo
+
+https://the-great-split.vercel.app/
 
 ## Features
 
@@ -16,7 +20,7 @@ The Great Split is a Next.js 14 app that curates popular films into an editorial
 - TMDB API
 - CSS (custom global styling)
 
-## Setup
+## Getting Started
 
 1. Install dependencies:
 
@@ -24,7 +28,7 @@ The Great Split is a Next.js 14 app that curates popular films into an editorial
 npm install
 ```
 
-2. Configure environment variables in `.env.local`:
+2. Create a `.env.local` file and add one of the following:
 
 ```bash
 TMDB_READ_ACCESS_TOKEN=your_tmdb_read_access_token
@@ -40,8 +44,8 @@ npm run dev
 
 Open http://localhost:3000 to view the app.
 
-## Notes
+## Project Structure
 
-- You can update the home experience in `src/app/page.js`.
-- Movie detail layout lives in `src/app/movie/[id]/page.js`.
-- TMDB calls are implemented in `src/lib/tmdb.js`.
+- `src/app/page.js` sets the home experience
+- `src/app/movie/[id]/page.js` renders the movie detail view
+- `src/lib/tmdb.js` contains TMDB API helpers

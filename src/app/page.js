@@ -4,8 +4,14 @@ import { getPopularMoviesSafe, TMDB_IMAGE_BASE } from "../lib/tmdb";
 const fallbackPoster =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='750' viewBox='0 0 500 750'%3E%3Crect width='500' height='750' fill='%23161a24'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23e7d8bf' font-family='sans-serif' font-size='30'%3ENo Poster%3C/text%3E%3C/svg%3E";
 
+const badges = ["Now Showing", "Festival Radar", "Critical Darlings"];
+
 const formatRating = (value) => (value ? value.toFixed(1) : "—");
 const getYear = (date) => (date ? date.slice(0, 4) : "—");
+const posterFor = (movie) =>
+  movie?.poster_path
+    ? `${TMDB_IMAGE_BASE}${movie.poster_path}`
+    : fallbackPoster;
 
 export default async function Home() {
   const { data, error } = await getPopularMoviesSafe(1);
@@ -30,16 +36,14 @@ export default async function Home() {
           </p>
         </div>
         <div className="flex flex-wrap gap-3 reveal-2">
-          {["Now Showing", "Festival Radar", "Critical Darlings"].map(
-            (label) => (
-              <span
-                key={label}
-                className="rounded-full border border-[color:var(--line)] bg-[color:var(--panel)] px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-[color:var(--muted)]"
-              >
-                {label}
-              </span>
-            ),
-          )}
+          {badges.map((label) => (
+            <span
+              key={label}
+              className="rounded-full border border-[color:var(--line)] bg-[color:var(--panel)] px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-[color:var(--muted)]"
+            >
+              {label}
+            </span>
+          ))}
         </div>
       </header>
 
@@ -80,11 +84,7 @@ export default async function Home() {
                 className="group relative overflow-hidden rounded-[1.6rem] border border-[color:var(--line)] hover-lift float-soft"
               >
                 <img
-                  src={
-                    spotlight.poster_path
-                      ? `${TMDB_IMAGE_BASE}${spotlight.poster_path}`
-                      : fallbackPoster
-                  }
+                  src={posterFor(spotlight)}
                   alt={`${spotlight.title} poster`}
                   className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
                 />
@@ -106,11 +106,7 @@ export default async function Home() {
               className="group flex items-center gap-4 rounded-[1.4rem] border border-[color:var(--line)] bg-[color:var(--panel)] p-4 shadow-[var(--shadow)] hover-lift"
             >
               <img
-                src={
-                  movie.poster_path
-                    ? `${TMDB_IMAGE_BASE}${movie.poster_path}`
-                    : fallbackPoster
-                }
+                src={posterFor(movie)}
                 alt={`${movie.title} poster`}
                 className="h-20 w-14 rounded-lg object-cover"
               />
@@ -157,11 +153,7 @@ export default async function Home() {
             >
               <div className="grid gap-4 p-4 sm:grid-cols-[minmax(0,160px)_minmax(0,1fr)]">
                 <img
-                  src={
-                    movie.poster_path
-                      ? `${TMDB_IMAGE_BASE}${movie.poster_path}`
-                      : fallbackPoster
-                  }
+                  src={posterFor(movie)}
                   alt={`${movie.title} poster`}
                   className="aspect-[2/3] w-full rounded-xl object-cover"
                 />

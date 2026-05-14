@@ -8,6 +8,10 @@ const fallbackPoster =
 const getYear = (date) => (date ? date.slice(0, 4) : "N/A");
 const formatRuntime = (runtime) => (runtime ? `${runtime} min` : "Runtime N/A");
 const formatRating = (value) => (value ? value.toFixed(1) : "—");
+const posterFor = (movie) =>
+  movie?.poster_path
+    ? `${TMDB_IMAGE_BASE}${movie.poster_path}`
+    : fallbackPoster;
 
 const buildDescription = (movie) => {
   if (!movie?.overview) {
@@ -70,9 +74,7 @@ export default async function MovieDetailPage({ params }) {
     );
   }
 
-  const poster = movie.poster_path
-    ? `${TMDB_IMAGE_BASE}${movie.poster_path}`
-    : fallbackPoster;
+  const poster = posterFor(movie);
 
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-10 sm:px-6 lg:px-10">
